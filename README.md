@@ -122,7 +122,9 @@ npm run test
 
 Linting:
 
-```npm run lint -- --fix```
+```
+npm run lint -- --fix
+```
 
 <a href='#table-of-contents'>Back to top</a>
 <hr />
