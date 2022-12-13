@@ -52,7 +52,9 @@ const PORT = process.env.PORT || 5000;
 try {
   // app.use(express.static('public'));
   app.use(express.static('public/img'));
-  app.use(cors());
+  app.use(cors({
+    origin: 'https://hirejob-iota.vercel.app/',
+}));
   app.use(bodyParser.json());
   app.use(xss());
   app.use("/v1",main);
