@@ -57,6 +57,12 @@ app.use(
         crossOriginResourcePolicy: false,
     }),
 );
+app.use((req,res ,next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Origin', 'Content-Type, Authorization');
+  next();
+})
 
 app.use("/v1", main);
 app.use(express.static('public'));
