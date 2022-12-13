@@ -16,19 +16,19 @@ const PORT = process.env.PORT || 5000;
 try {
   app.use(express.static("public"));
   app.use(cors());
-  app.use(
-    helmet({
-      crossOriginResourcePolicy: false,
-    })
-  );
+  // app.use(
+  //   helmet({
+  //     crossOriginResourcePolicy: false,
+  //   })
+  // );
   app.use(xss());
   app.use(morgan("dev"));
   app.use(express.json());
-  app.use(
-    express.urlencoded({
-      extended: false,
-    })
-  );
+  // app.use(
+  //   express.urlencoded({
+  //     extended: false,
+  //   })
+  // );
 
   app.use("/v1", main);
 } catch (err) {
