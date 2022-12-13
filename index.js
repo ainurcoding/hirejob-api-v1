@@ -53,7 +53,7 @@ try {
   // app.use(express.static('public'));
   app.use(express.static('public/img'));
   app.use(cors({
-    origin: 'https://hirejob-iota.vercel.app/',
+    origin: 'https://calm-gold-hermit-crab-hose.cyclic.app/',
 }));
   app.use(bodyParser.json());
   app.use(xss());
