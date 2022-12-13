@@ -7,6 +7,7 @@ const xss = require("xss-clean");
 const morgan = require("morgan");
 const createError = require("http-errors");
 const path = require("path");
+const bodyParser = require('body-parser');
 
 const main = require("./src/router/index.routes");
 
@@ -53,9 +54,8 @@ try {
   app.use(express.static('public/img'));
   app.use(cors());
   app.use(bodyParser.json());
-  app.use(userRouter);
   app.use(xss());
-  app.use("v1",main);
+  app.use("/v1",main);
   
 } catch(err) {
   console.log(err);
