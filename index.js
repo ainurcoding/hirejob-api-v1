@@ -14,11 +14,11 @@ const main = require("./src/router/index.routes");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const corsOptions ={
-  origin:'*', 
-  credentials:true,            //access-control-allow-credentials:true
-  optionSuccessStatus:200,
-}
+const corsOptions = {
+  origin: "*",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
 
 // try {
 //   app.use(express.static("public"));
@@ -56,22 +56,27 @@ const corsOptions ={
 // });
 
 app.use(xss());
-// app.use(cors(corsOptions));
+app.use(cors());
+app.options('*', cors);
 app.use(bodyParser.json());
 app.use(
-    helmet({
-        crossOriginResourcePolicy: false,
-    }),
+  helmet({
+    crossOriginEmbedderPolicy: false,
+    crossOriginResourcePolicy: false,
+  })
 );
-app.use((req,res ,next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Origin', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Origin', 'Content-Type, Authorization');
-  next();
-})
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader(
+//     "Access-Control-Allow-Origin",
+//     "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+//   );
+//   res.setHeader("Access-Control-Allow-Origin", "Content-Type, Authorization");
+//   next();
+// });
 
 app.use("/v1", main);
-app.use(express.static('public'));
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
 app.listen(PORT, () => {
