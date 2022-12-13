@@ -53,7 +53,8 @@ try {
   // app.use(express.static('public'));
   app.use(express.static('public/img'));
   app.use(cors({
-    origin: 'https://calm-gold-hermit-crab-hose.cyclic.app/',
+    origin: '*',
+    optionsSuccessStatus: 200
 }));
   app.use(bodyParser.json());
   app.use(xss());
