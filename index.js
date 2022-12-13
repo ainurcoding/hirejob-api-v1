@@ -13,41 +13,54 @@ const main = require("./src/router/index.routes");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-try {
-  app.use(express.static("public"));
-  app.use(cors());
-  // app.use(
-  //   helmet({
-  //     crossOriginResourcePolicy: false,
-  //   })
-  // );
-  app.use(xss());
-  app.use(morgan("dev"));
-  app.use(express.json());
-  // app.use(
-  //   express.urlencoded({
-  //     extended: false,
-  //   })
-  // );
+// try {
+//   app.use(express.static("public"));
+//   app.use(cors());
+//   // app.use(
+//   //   helmet({
+//   //     crossOriginResourcePolicy: false,
+//   //   })
+//   // );
+//   app.use(xss());
+//   app.use(morgan("dev"));
+//   app.use(express.json());
+//   // app.use(
+//   //   express.urlencoded({
+//   //     extended: false,
+//   //   })
+//   // );
 
-  app.use("/v1", main);
-} catch (err) {
-  console.error(err);
+//   app.use("/v1", main);
+// } catch (err) {
+//   console.error(err);
+// }
+
+// app.all("*", (req, res, next) => {
+//   next(new createError.NotFound());
+// });
+
+// app.use((err, req, res) => {
+//   const msg = err.message || "Internal Server Error";
+//   const code = err.status || 500;
+
+//   res.status(code).json({
+//     message: msg,
+//   });
+// });
+
+try {
+  // app.use(express.static('public'));
+  app.use(express.static('public/img'));
+  app.use(cors());
+  app.use(bodyParser.json());
+  app.use(userRouter);
+  app.use(xss());
+  app.use("v1",main);
+  
+} catch(err) {
+  console.log(err);
 }
 
-app.all("*", (req, res, next) => {
-  next(new createError.NotFound());
-});
-
-app.use((err, req, res) => {
-  const msg = err.message || "Internal Server Error";
-  const code = err.status || 500;
-
-  res.status(code).json({
-    message: msg,
-  });
-});
-
 app.listen(PORT, () => {
-  console.log(`my life running on ${PORT}`);
+  console.log(`server running on port ${PORT}`);
 });
