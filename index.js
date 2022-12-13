@@ -50,7 +50,7 @@ const PORT = process.env.PORT || 5000;
 // });
 
 app.use(xss());
-app.use(cors());
+// app.use(cors());
 app.use(bodyParser.json());
 app.use(
     helmet({
