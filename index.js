@@ -13,25 +13,27 @@ const main = require("./src/router/index.routes");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(express.static("public"));
-app.use(cors());
-app.use(
-  helmet({
-    crossOriginResourcePolicy: false,
-  })
-);
-app.use(xss());
-app.use(morgan("dev"));
-app.use(express.json());
-app.use(
-  express.urlencoded({
-    extended: false,
-  })
-);
+try {
+  app.use(express.static("public"));
+  app.use(cors());
+  app.use(
+    helmet({
+      crossOriginResourcePolicy: false,
+    })
+  );
+  app.use(xss());
+  app.use(morgan("dev"));
+  app.use(express.json());
+  app.use(
+    express.urlencoded({
+      extended: false,
+    })
+  );
 
-app.use("/v1", main);
-
-
+  app.use("/v1", main);
+} catch (err) {
+  console.error(err);
+}
 
 app.all("*", (req, res, next) => {
   next(new createError.NotFound());
