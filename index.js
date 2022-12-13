@@ -7,7 +7,7 @@ const xss = require("xss-clean");
 const morgan = require("morgan");
 const createError = require("http-errors");
 const path = require("path");
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 
 const main = require("./src/router/index.routes");
 
@@ -51,16 +51,20 @@ const PORT = process.env.PORT || 5000;
 
 try {
   // app.use(express.static('public'));
-  app.use(express.static('public/img'));
-  app.use(cors({
-    origin: '*',
-    optionsSuccessStatus: 200
-}));
+  app.use(express.static("public/img"));
+  app.use(
+    cors({
+      origin: "*",
+      optionsSuccessStatus: 200,
+    })
+  );
+  app.use((req, res, next) => {
+    require.setHeader('Access-Control-Allow-Origin', '*');
+  })
   app.use(bodyParser.json());
   app.use(xss());
-  app.use("/v1",main);
-  
-} catch(err) {
+  app.use("/v1", main);
+} catch (err) {
   console.log(err);
 }
 
