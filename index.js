@@ -49,24 +49,18 @@ const PORT = process.env.PORT || 5000;
 //   });
 // });
 
-try {
-  // app.use(express.static('public'));
-  app.use(express.static("public/img"));
-  app.use(
-    cors({
-      origin: "*",
-      optionsSuccessStatus: 200,
-    })
-  );
-  app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-  })
-  app.use(bodyParser.json());
-  app.use(xss());
-  app.use("/v1", main);
-} catch (err) {
-  console.log(err);
-}
+app.use(xss());
+app.use(cors());
+app.use(bodyParser.json());
+app.use(
+    helmet({
+        crossOriginResourcePolicy: false,
+    }),
+);
+
+app.use("/v1", main);
+app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
 
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`);
