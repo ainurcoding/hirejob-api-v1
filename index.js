@@ -56,7 +56,7 @@ const corsOptions ={
 // });
 
 app.use(xss());
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(
     helmet({
