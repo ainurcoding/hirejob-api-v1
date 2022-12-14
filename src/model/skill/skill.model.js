@@ -2,7 +2,7 @@ const pool = require("../../config/db");
 
 const skillModel = {
     insertSkill: (data) => {
-        
+        console.table(data);
         console.log(data)
         console.log("ini di model insert")
         const query = {
@@ -50,6 +50,7 @@ const skillModel = {
         })
     },
     showSkillReferenceUser: (user_id) => {
+        
         const query = {
             text: `
                     SELECT 
@@ -60,9 +61,8 @@ const skillModel = {
                         users
                     INNER JOIN skills
                         ON users.user_id = skills.user_id
-                    WHERE users.user_id = $1
+                    WHERE users.user_id = '${user_id}'
                     `,
-            values: [user_id],
         }
         return new Promise((resolve, reject) => {
             pool.query(query, (err,res) => {

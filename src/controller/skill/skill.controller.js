@@ -17,7 +17,7 @@ const skillController = {
             workerModel.showById(user_id)
                 .then(async (result) => {
                     const data = result.rows[0];
-                    console.log(data)
+                    // console.log(data)
                     if (data.level_user == 3) {
                         const insertData = {
                             id,
@@ -26,10 +26,13 @@ const skillController = {
                         }
                         // console.log(insertData)
                         skillModel.insertSkill(insertData)
-                            .then(async () => {
-                                const result = await skillModel.showSkillReferenceUser(user_id);
-                                const dataUpdated = result.rows;
-                                success(res, dataUpdated, "success", `success added skilss on users ${dataUpdated[0].full_name}`)
+                            .then(async (results) => {
+                                console.log(results.rows)
+                                success(res, results, 'success', 'success add skill')
+                                // const result = await skillModel.showSkillReferenceUser(user_id);
+                                // console.log('test', result.rows)
+                                // const dataUpdated = result.rows;
+                                // success(res, dataUpdated, "success", `success added skilss on users ${dataUpdated[0].full_name}`)
                             }).catch((err) => {
                                 failed(res, err.message, "failed", "failed insert skill")
                             })
